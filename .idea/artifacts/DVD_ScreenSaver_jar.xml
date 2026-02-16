@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="DVD_ScreenSaver:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/DVD_ScreenSaver_jar</output-path>
+    <root id="archive" name="DVD_ScreenSaver.jar">
+      <element id="module-output" name="DVD_ScreenSaver" />
+    </root>
+  </artifact>
+</component>
