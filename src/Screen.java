@@ -16,6 +16,7 @@ public class Screen extends JFrame implements KeyListener {
     private GridBagConstraints gbcMain;
 
     public Screen(int width, int height, boolean resizeable, boolean fullScreen, boolean immersive) {
+
         this.setTitle("Screen");
         this.setSize(width, height);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -60,7 +61,7 @@ public class Screen extends JFrame implements KeyListener {
 
             int x = dvd.getX();
             int y = dvd.getY();
-            int speed = 5;
+            int speed = Launcher.speedSlider.getValue();
             int dx = speed;
             int dy = speed;
 
@@ -112,7 +113,8 @@ public class Screen extends JFrame implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            System.exit(0);
+            this.dispose();
+            new Launcher();
         }
     }
 
