@@ -70,7 +70,7 @@ public class Launcher extends JFrame implements ActionListener, ChangeListener {
         speedLabel.setHorizontalAlignment(SwingConstants.CENTER);
         this.add(speedLabel);
 
-        speedSlider = new JSlider(0, 100, 5);
+        speedSlider = new JSlider(0, 50, 5);
         speedSlider.setPaintTicks(true);
         speedSlider.setMinorTickSpacing(5);
         speedSlider.setPaintTrack(true);
@@ -83,21 +83,13 @@ public class Launcher extends JFrame implements ActionListener, ChangeListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
-        if (e.getSource() == isResizable) {
-            resizeable = true;
-        }
-
-        if (e.getSource() == isFullScreen) {
-            fullScreen = true;
-        }
-
-        if (e.getSource() == isImmersive) {
-            immersive = true;
-        }
+        resizeable = isResizable.isSelected();
+        fullScreen = isFullScreen.isSelected();
+        immersive = isImmersive.isSelected();
 
         if (e.getSource() == launchButton) {
-            new Screen(600, 400, resizeable, fullScreen, immersive);
+            int speed = speedSlider.getValue();
+            new Screen(600, 400, resizeable, fullScreen, immersive, speed);
             this.dispose();
         }
     }

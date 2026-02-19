@@ -14,8 +14,9 @@ public class Screen extends JFrame implements KeyListener {
     private int howToCloseLifeTime = 3000;
     private DVDLogo dvd;
     private GridBagConstraints gbcMain;
+    private int speed;
 
-    public Screen(int width, int height, boolean resizeable, boolean fullScreen, boolean immersive) {
+    public Screen(int width, int height, boolean resizeable, boolean fullScreen, boolean immersive, int speed) {
 
         this.setTitle("Screen");
         this.setSize(width, height);
@@ -23,6 +24,7 @@ public class Screen extends JFrame implements KeyListener {
         this.setResizable(resizeable);
         this.setLocationRelativeTo(null);
         this.addKeyListener(this);
+        this.speed = speed;
         if (fullScreen) {
             this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         }
@@ -42,11 +44,10 @@ public class Screen extends JFrame implements KeyListener {
         gbcMain.weightx = 1.0;
         gbcMain.weighty = 1.0;
         gbcMain.fill = GridBagConstraints.BOTH;
-
         dvdPanel = new JPanel();
         dvdPanel.setBackground(Color.BLACK);
         dvdPanel.setLayout(null);
-        dvd = new DVDLogo(0, 0);
+        dvd = new DVDLogo();
         dvdPanel.add(dvd);
         this.add(panel);
         this.setVisible(true);
@@ -54,38 +55,6 @@ public class Screen extends JFrame implements KeyListener {
 
 
     }
-
-    private void moveDVD() {
-
-        Timer moveTimer = new Timer(10, new ActionListener() {
-
-            int x = dvd.getX();
-            int y = dvd.getY();
-            int speed = Launcher.speedSlider.getValue();
-            int dx = speed;
-            int dy = speed;
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                x += dx;
-                y += dy;
-
-                if (x < 0 || x + dvd.getWidth() > dvdPanel.getWidth()) {
-                    dx = -dx; // Richtung umkehren
-                }
-                if (y < 0 || y + dvd.getHeight() > dvdPanel.getHeight()) {
-                    dy = -dy; // Richtung umkehren
-                }
-
-                dvd.setLocation(x, y);
-
-            }
-        });
-
-        moveTimer.start();
-    }
-
 
     private void showInfoMessage(String info, int milliSeconds) {
         howToClose = new JLabel(info);
@@ -102,7 +71,7 @@ public class Screen extends JFrame implements KeyListener {
             public void actionPerformed(ActionEvent e) {
                 howToClose.setVisible(false);
                 panel.add(dvdPanel, gbcMain);
-                moveDVD();
+                dvd.startAnimation(dvdPanel, speed);
             }
         });
 
